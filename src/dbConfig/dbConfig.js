@@ -2,7 +2,10 @@ import mongoose from "mongoose";
 
 export async function connect() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
     const connection = mongoose.connection;
 
@@ -10,6 +13,6 @@ export async function connect() {
       console.log("MongoDB connected");
     });
   } catch (error) {
-    console.log(error.message);
+    console.log("Error connecting to mongoDB: ", error.message);
   }
 }
